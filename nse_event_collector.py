@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 # ============================================================
 # CONFIGURATION
 # ============================================================
-
+WATCHLIST_URL = https://script.google.com/macros/s/AKfycbySSc5SudGTpSjnIXbQaoeAsr6mYDXFkR2YPnLvpyVIoQsTbflb1W7Wj_oV1EEq_dqS/exec?type=eventwatchlist
 WATCHLIST = [
     "NSE",
     "GATEWAY",
@@ -43,7 +43,6 @@ NSE_BOARD_MEETINGS_API = (
     "https://www.nseindia.com/api/"
     "corporate-board-meetings"
 )
-
 
 # ============================================================
 # NSE SESSION
@@ -84,6 +83,37 @@ end_date = (
 # ============================================================
 # FETCH EVENTS FOR ONE COMPANY
 # ============================================================
+
+def get_watchlist():
+    print("Fetching watchlist from Google Sheet...")
+
+    response = requests.get(
+        WATCHLIST_URL,
+        timeout=30
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    if not isinstance(data, list):
+        raise ValueError("Invalid watchlist response")
+
+    watchlist = []
+
+    for item in data:
+        company = item.get("company")
+        symbol = item.get("symbol")
+
+        if company and symbol:
+            watchlist.append({
+                "company": company,
+                "symbol": symbol
+            })
+
+    print(f"Watchlist loaded: {len(watchlist)} companies")
+
+    return watchlist
 
 def fetch_nse_events(symbol):
 
