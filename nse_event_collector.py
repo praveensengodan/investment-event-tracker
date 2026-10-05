@@ -7,35 +7,6 @@ from datetime import datetime, timedelta
 # CONFIGURATION
 # ============================================================
 WATCHLIST_URL = https://script.google.com/macros/s/AKfycbySSc5SudGTpSjnIXbQaoeAsr6mYDXFkR2YPnLvpyVIoQsTbflb1W7Wj_oV1EEq_dqS/exec?type=eventwatchlist
-WATCHLIST = [
-    "NSE",
-    "GATEWAY",
-    "KPITTECH",
-    "CMSINFO",
-    "SKYGOLD",
-    "HDFCBANK",
-    "CIPLA",
-    "ICICIAMC",
-    "TATAMOTORS",
-    "LGEINDIA",
-    "TATACAP",
-    "TATACHEM",
-    "LICI",
-    "BRIGADE",
-    "ASHOKLEY",
-    "TATAPOWER",
-    "ZYDUSLIFE",
-    "DRREDDY",
-    "NSDL",
-    "KTKBANK",
-    "SOUTHBANK",
-    "IDFCFIRSTB",
-    "HDBFS",
-    "INDUSINDBK",
-    "TMB",
-    "NATCOPHARM",
-]
-
 
 DAYS_AHEAD = 90
 
@@ -224,6 +195,7 @@ def fetch_nse_events(symbol):
 def collect_nse_events():
 
     all_events = []
+    watchlist = get_watchlist()
 
     print("=" * 70)
     print("NSE INVESTMENT EVENT COLLECTOR")
@@ -243,7 +215,9 @@ def collect_nse_events():
 
     print("=" * 70)
 
-    for symbol in WATCHLIST:
+    for item in watchlist:
+    symbol = item["symbol"]
+    company = item["company"]
 
         events = fetch_nse_events(
             symbol
