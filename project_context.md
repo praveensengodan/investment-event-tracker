@@ -39,36 +39,36 @@ Investment Events Google Calendar (Asia/Kolkata)
 
 ### Usable Symbols (28 Companies)
 
-| # | Company | Symbol |
-|---|---|---|
-| 1 | NSE | `NSE` |
-| 2 | Gateway Distriparks | `GATEWAY` |
-| 3 | KPIT Technologies | `KPITTECH` |
-| 4 | CMS Info Systems | `CMSINFO` |
-| 5 | Sky Gold & Diamonds | `SKYGOLD` |
-| 6 | HDFC Bank | `HDFCBANK` |
-| 7 | Cipla | `CIPLA` |
-| 8 | ICICI Prudential AMC | `ICICIAMC` |
-| 9 | Tata Motors | `TATAMOTORS` |
-| 10 | Tata Motors Passenger Vehicles | `TMPV` |
-| 11 | LG Electronics India | `LGEINDIA` |
-| 12 | Tata Capital | `TATACAP` |
-| 13 | Tata Chemicals | `TATACHEM` |
-| 14 | Life Insurance Corporation | `LICI` |
-| 15 | Brigade Enterprises | `BRIGADE` |
-| 16 | Ashok Leyland | `ASHOKLEY` |
-| 17 | Tata Power | `TATAPOWER` |
-| 18 | Zydus Lifesciences | `ZYDUSLIFE` |
-| 19 | Dr. Reddy's Laboratories | `DRREDDY` |
-| 20 | NSDL | `NSDL` |
-| 21 | Karnataka Bank | `KTKBANK` |
-| 22 | South Indian Bank | `SOUTHBANK` |
-| 23 | IDFC FIRST Bank | `IDFCFIRSTB` |
-| 24 | HDB Financial Services | `HDBFS` |
-| 25 | IndusInd Bank | `INDUSINDBK` |
-| 26 | Tamilnad Mercantile Bank | `TMB` |
-| 27 | Natco Pharma | `NATCOPHARM` |
-| 28 | ITC | `ITC` |
+| # | Company | Symbol | Exchange / BSE Scrip |
+|---|---|---|---|
+| 1 | NSE | `NSE` | BSE: `544937` |
+| 2 | Gateway Distriparks | `GATEWAY` | NSE / BSE |
+| 3 | KPIT Technologies | `KPITTECH` | NSE / BSE |
+| 4 | CMS Info Systems | `CMSINFO` | NSE / BSE |
+| 5 | Sky Gold & Diamonds | `SKYGOLD` | NSE / BSE |
+| 6 | HDFC Bank | `HDFCBANK` | NSE / BSE |
+| 7 | Cipla | `CIPLA` | NSE / BSE |
+| 8 | ICICI Prudential AMC | `ICICIAMC` | NSE / BSE |
+| 9 | Tata Motors | `TATAMOTORS` | NSE / BSE |
+| 10 | Tata Motors Passenger Vehicles | `TMPV` | NSE / BSE |
+| 11 | LG Electronics India | `LGEINDIA` | NSE / BSE |
+| 12 | Tata Capital | `TATACAP` | NSE / BSE |
+| 13 | Tata Chemicals | `TATACHEM` | NSE / BSE |
+| 14 | Life Insurance Corporation | `LICI` | NSE / BSE |
+| 15 | Brigade Enterprises | `BRIGADE` | NSE / BSE |
+| 16 | Ashok Leyland | `ASHOKLEY` | NSE / BSE |
+| 17 | Tata Power | `TATAPOWER` | NSE / BSE |
+| 18 | Zydus Lifesciences | `ZYDUSLIFE` | NSE / BSE |
+| 19 | Dr. Reddy's Laboratories | `DRREDDY` | NSE / BSE |
+| 20 | NSDL | `NSDL` | BSE: `544467` |
+| 21 | Karnataka Bank | `KTKBANK` | NSE / BSE |
+| 22 | South Indian Bank | `SOUTHBANK` | NSE / BSE |
+| 23 | IDFC FIRST Bank | `IDFCFIRSTB` | NSE / BSE |
+| 24 | HDB Financial Services | `HDBFS` | NSE / BSE |
+| 25 | IndusInd Bank | `INDUSINDBK` | NSE / BSE |
+| 26 | Tamilnad Mercantile Bank | `TMB` | NSE / BSE |
+| 27 | Natco Pharma | `NATCOPHARM` | NSE / BSE |
+| 28 | ITC | `ITC` | NSE / BSE |
 
 ---
 

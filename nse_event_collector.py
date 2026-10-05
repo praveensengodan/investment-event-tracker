@@ -19,6 +19,15 @@ NSE_ANNOUNCEMENTS_API = "https://www.nseindia.com/api/corporate-announcements"
 BSE_BOARD_MEETINGS_API = "https://api.bseindia.com/BseIndiaAPI/api/BoardMeeting/w"
 BSE_ANNOUNCEMENTS_API = "https://api.bseindia.com/BseIndiaAPI/api/AnnSubCategoryGetData/w"
 
+# ============================================================
+# BSE SCRIP CODE MAPPINGS
+# Maps human-readable symbols to BSE 6-digit Scrip Codes
+# ============================================================
+BSE_SCRIP_MAP = {
+    "NSE": "544937",
+    "NSDL": "544467",
+}
+
 
 # ============================================================
 # SESSIONS
@@ -289,14 +298,16 @@ def fetch_nse_announcements(symbol):
 def fetch_bse_events(symbol, company=""):
     """
     Fetches Board Meetings & Corporate Announcements from BSE India API.
+    Resolves symbol to BSE 6-digit Scrip Code if mapped.
     """
     events = []
+    bse_code = BSE_SCRIP_MAP.get(symbol.upper(), symbol)
 
     try:
         # 1. BSE Board Meetings
         bm_resp = bse_session.get(
             BSE_BOARD_MEETINGS_API,
-            params={"scripcode": symbol},
+            params={"scripcode": bse_code},
             timeout=30,
         )
 
@@ -347,7 +358,7 @@ def fetch_bse_events(symbol, company=""):
                 "pageno": "1",
                 "strCat": "-1",
                 "strPrevDate": "",
-                "strScrip": symbol,
+                "strScrip": bse_code,
                 "strSearch": "P",
                 "strToDate": "",
                 "strType": "C",
@@ -423,16 +434,14 @@ def collect_all_events():
 
         print(f"Fetching {symbol} ({company})...", end=" ")
 
-        # 1. Fetch from NSE Board Meetings
+        # 1. Fetch from NSE Board Meetings & Announcements
         nse_events = fetch_nse_board_meetings(symbol)
-
-        # 2. Fetch from NSE Announcements (Concalls & Timed Meets)
         nse_ann_events = fetch_nse_announcements(symbol)
 
         company_events = nse_events + nse_ann_events
 
-        # 3. If NSE has no events or for BSE securities, query BSE
-        if not company_events:
+        # 2. If symbol is mapped to BSE (like NSE / NSDL) or NSE has no events, query BSE
+        if symbol.upper() in BSE_SCRIP_MAP or not company_events:
             bse_events = fetch_bse_events(symbol, company)
             company_events.extend(bse_events)
 
