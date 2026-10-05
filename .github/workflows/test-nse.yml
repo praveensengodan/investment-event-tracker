@@ -1,4 +1,4 @@
-name: Test NSE Access
+name: Test NSE Browser
 
 on:
   workflow_dispatch:
@@ -16,10 +16,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install requests
+      - name: Install Playwright
         run: |
-          pip install requests
+          pip install playwright
+          playwright install chromium
 
-      - name: Test NSE
+      - name: Run NSE browser test
         run: |
-          python test_nse.py
+          python test_nse_browser.py
