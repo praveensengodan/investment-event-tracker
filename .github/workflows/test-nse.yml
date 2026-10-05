@@ -16,11 +16,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Playwright
+      - name: Install requests
         run: |
-          pip install playwright
-          playwright install chromium
+          pip install requests
 
-      - name: Run NSE browser test
+      - name: Test NSE API
         run: |
-          python test_nse_browser.py
+          python test_nse_api.py
