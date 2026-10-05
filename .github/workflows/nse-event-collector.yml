@@ -1,13 +1,15 @@
-name: Test NSE Browser
+name: NSE Event Collector
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-nse:
+  collect-events:
+
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -16,10 +18,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install requests
+      - name: Install dependencies
         run: |
           pip install requests
 
-      - name: Test NSE API
+      - name: Collect NSE events
         run: |
-          python test_nse_api.py
+          python nse_event_collector.py
