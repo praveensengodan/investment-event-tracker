@@ -178,13 +178,19 @@ investment-event-tracker/
 ## Current Status & Next Steps
 
 ### Exact Current Position
-1. Apps Script dynamic `eventwatchlist` endpoint verified & working (27 companies).
-2. NSE API collection tested & verified (retrieving 8 upcoming meetings across the watchlist).
-3. `nse_event_collector.py` now includes:
-   - Meeting deduplication across multiple circulars/intimations.
-   - Matching payload format (`eventType`, `eventDate`, `eventTime`, `sourceUrl`, `notes`).
-   - `send_events_to_sheet()` posting batch payload directly to Apps Script `/exec`.
-4. Next action: Commit and run GitHub Action to verify end-to-end event write to `Stock Event Tracker` and automatic Google Calendar event generation.
+1. **Full end-to-end pipeline tested & verified working in production:**
+   - Dynamic watchlist retrieved from Google Sheet (`Event Watchlist`).
+   - Official NSE API queried for all 27 active stocks.
+   - Deduplication successfully merged duplicate exchange circulars into unique meeting records.
+   - Batch payload posted to Google Apps Script endpoint (`doPost`).
+   - `Stock Event Tracker` sheet updated with full metadata (Columns A–L).
+   - Google Calendar (`Investment Events`, `Asia/Kolkata`) automatically synchronized.
+2. **Automatic Execution:**
+   - GitHub Actions scheduled twice daily at 6:00 AM IST & 6:30 PM IST with manual `workflow_dispatch` available anytime.
+3. **Next Focus (Phase F):**
+   - Add BSE support / Scrip Code fetching for BSE-only securities (e.g. NSE, NSDL).
+   - Verify Tata Motors PV symbol when assigned.
+   - Expand NSE sources to include Corporate Actions (Dividends, Splits, Bonus, AGM/EGM).
 
 ### Roadmap
 
@@ -207,19 +213,20 @@ investment-event-tracker/
 #### Phase C — Google Sheet Receiver
 - [x] Design `Stock Event Tracker` schema (Columns A–L)
 - [x] Implement Apps Script `doPost()` receiver
-- [ ] End-to-end GitHub Actions → Google Sheet write/update test
+- [x] End-to-end GitHub Actions → Google Sheet write/update test (Verified)
 
 #### Phase D — Google Calendar Sync
 - [x] Configure `Investment Events` calendar
 - [x] Implement and verify `syncInvestmentEvents()` logic
-- [ ] End-to-end event update → calendar entry verification
+- [x] End-to-end event update → calendar entry verification (Verified)
 
 #### Phase E — Automation & Scheduling
 - [x] Add GitHub Actions daily cron schedule (6:00 AM IST & 6:30 PM IST)
 - [x] Retain `workflow_dispatch` for manual on-demand triggers
-- [ ] Error logging, retries, and failure alerts
+- [x] Verified automatic end-to-end execution
 
 #### Phase F — Future Enhancements
+- [ ] Add BSE collector / Scrip Code support for BSE-listed securities (NSE, NSDL)
 - [ ] Verify Tata Motors PV symbol when listed/assigned
-- [ ] Add BSE / company IR fallback sources
-- [ ] Support complete corporate action lifecycle (Record dates, Ex-dates, Dividend payouts, Rights issues, Buybacks)
+- [ ] Corporate actions tracking (Record dates, Ex-dates, Dividends, Buybacks, Splits/Bonus)
+- [ ] Company IR fallback sources for unlisted / special filings
