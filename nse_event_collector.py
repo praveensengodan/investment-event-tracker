@@ -4,7 +4,11 @@ from datetime import datetime, timedelta
 
 
 # ============================================================
-WATCHLIST_URL = "https://script.google.com/macros/s/AKfycbySSc5SudGTpSjnIXbQaoeAsr6mYDXFkR2YPnLvpyVIoQsTbflb1W7Wj_oV1EEq_dqS/exec?type=eventwatchlist"
+# CONFIGURATION
+# ============================================================
+WEB_APP_URL = "https://script.google.com/macros/s/AKfycbySSc5SudGTpSjnIXbQaoeAsr6mYDXFkR2YPnLvpyVIoQsTbflb1W7Wj_oV1EEq_dqS/exec"
+WATCHLIST_URL = f"{WEB_APP_URL}?type=eventwatchlist"
+POST_URL = WEB_APP_URL
 
 DAYS_AHEAD = 90
 
@@ -273,53 +277,98 @@ def normalize_event_type(
 
 
 # ============================================================
-# PREPARE EVENTS
+# PREPARE & DEDUPLICATE EVENTS
 # ============================================================
 
 def prepare_events(events):
 
-    prepared = []
+    events_by_key = {}
 
     for event in events:
 
+        symbol = event.get("symbol")
+        company = event.get("company")
+        event_date = event.get("event_date")
+        purpose = event.get("purpose")
+        details = event.get("details")
+
+        if not symbol or not company or not event_date:
+            continue
+
         event_type = normalize_event_type(
-            event.get("purpose"),
-            event.get("details"),
+            purpose,
+            details,
         )
 
-        prepared.append({
-            "symbol":
-                event.get("symbol"),
+        key = f"{symbol}|{event_type}|{event_date}"
 
-            "company":
-                event.get("company"),
+        source_url = event.get("attachment") or ""
+        note_candidate = details or purpose or ""
 
-            "event_type":
-                event_type,
+        if key in events_by_key:
+            existing = events_by_key[key]
+            # Retain source URL if available
+            if source_url and not existing["sourceUrl"]:
+                existing["sourceUrl"] = source_url
+            # Merge notes without duplication
+            if note_candidate and note_candidate not in existing["notes"]:
+                existing["notes"] = (
+                    f"{existing['notes']}; {note_candidate}".strip("; ")
+                )
+        else:
+            events_by_key[key] = {
+                "symbol": symbol,
+                "company": company,
+                "eventType": event_type,
+                "eventDate": event_date,
+                "eventTime": "",
+                "status": "Confirmed",
+                "source": "NSE Official",
+                "sourceUrl": source_url,
+                "notes": note_candidate,
+            }
 
-            "event_date":
-                event.get("event_date"),
+    return list(events_by_key.values())
 
-            "event_time":
-                "",
 
-            "status":
-                "Confirmed",
+# ============================================================
+# SEND EVENTS TO GOOGLE SHEET & CALENDAR
+# ============================================================
 
-            "source":
-                "NSE Official",
+def send_events_to_sheet(events):
 
-            "source_url":
-                event.get("attachment") or "",
+    print()
+    print("=" * 70)
+    print("SYNCING EVENTS TO GOOGLE SHEET & CALENDAR")
+    print("=" * 70)
 
-            "notes":
-                event.get("details") or "",
+    if not events:
+        print("No events to send.")
+        return
 
-            "broadcast_time":
-                event.get("broadcast_time") or "",
-        })
+    payload = {
+        "events": events
+    }
 
-    return prepared
+    try:
+        response = requests.post(
+            POST_URL,
+            json=payload,
+            timeout=60,
+        )
+
+        print(
+            f"HTTP Status: {response.status_code}"
+        )
+
+        try:
+            data = response.json()
+            print("Apps Script Response:", data)
+        except Exception:
+            print("Response:", response.text[:300])
+
+    except Exception as error:
+        print(f"Failed to post events to Apps Script: {error}")
 
 
 # ============================================================
@@ -337,7 +386,7 @@ def main():
     print()
     print("=" * 70)
     print(
-        f"TOTAL UPCOMING EVENTS: "
+        f"TOTAL UNIQUE UPCOMING EVENTS: "
         f"{len(prepared_events)}"
     )
     print("=" * 70)
@@ -345,21 +394,24 @@ def main():
     for event in sorted(
         prepared_events,
         key=lambda x: (
-            x["event_date"],
+            x["eventDate"],
             x["symbol"],
-            x["event_type"],
+            x["eventType"],
         ),
     ):
 
         print(
-            event["event_date"],
+            event["eventDate"],
             "|",
             event["symbol"],
             "|",
             event["company"],
             "|",
-            event["event_type"],
+            event["eventType"],
         )
+
+    # Sync events to Google Sheet & Google Calendar
+    send_events_to_sheet(prepared_events)
 
 
 if __name__ == "__main__":

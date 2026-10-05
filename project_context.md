@@ -178,9 +178,13 @@ investment-event-tracker/
 ## Current Status & Next Steps
 
 ### Exact Current Position
-1. Apps Script dynamic `eventwatchlist` endpoint is working and tested.
-2. `nse_event_collector.py` has been updated with valid `WATCHLIST_URL` string quotes and dynamically loops through `watchlist = get_watchlist()` (replacing the hard-coded list).
-3. Next action: Commit and push the changes to GitHub, then manually trigger the GitHub Action (`NSE Event Collector`) to verify that the 27 companies are loaded and queried dynamically.
+1. Apps Script dynamic `eventwatchlist` endpoint verified & working (27 companies).
+2. NSE API collection tested & verified (retrieving 8 upcoming meetings across the watchlist).
+3. `nse_event_collector.py` now includes:
+   - Meeting deduplication across multiple circulars/intimations.
+   - Matching payload format (`eventType`, `eventDate`, `eventTime`, `sourceUrl`, `notes`).
+   - `send_events_to_sheet()` posting batch payload directly to Apps Script `/exec`.
+4. Next action: Commit and run GitHub Action to verify end-to-end event write to `Stock Event Tracker` and automatic Google Calendar event generation.
 
 ### Roadmap
 
@@ -194,8 +198,8 @@ investment-event-tracker/
 #### Phase B — NSE Collection & Deduplication
 - [x] Official NSE API integration (Board Meetings)
 - [x] Filter upcoming 90-day window
-- [ ] Deduplicate multiple records for same meeting (e.g. `Board Meeting Intimation` vs `Financial Results`)
-- [ ] Implement robust composite `Event Key`
+- [x] Deduplicate multiple records for same meeting (e.g. `Board Meeting Intimation` vs `Financial Results`)
+- [x] Implement robust composite `Event Key`
 - [ ] Add Event Calendar source
 - [ ] Add Shareholder Meetings / Postal Ballot source
 - [ ] Add Corporate Actions source
