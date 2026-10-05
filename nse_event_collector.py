@@ -19,15 +19,6 @@ NSE_ANNOUNCEMENTS_API = "https://www.nseindia.com/api/corporate-announcements"
 BSE_BOARD_MEETINGS_API = "https://api.bseindia.com/BseIndiaAPI/api/BoardMeeting/w"
 BSE_ANNOUNCEMENTS_API = "https://api.bseindia.com/BseIndiaAPI/api/AnnSubCategoryGetData/w"
 
-# ============================================================
-# BSE SCRIP CODE MAPPINGS
-# Maps human-readable symbols to BSE 6-digit Scrip Codes
-# ============================================================
-BSE_SCRIP_MAP = {
-    "NSE": "544937",
-    "NSDL": "544467",
-}
-
 
 # ============================================================
 # SESSIONS
@@ -295,13 +286,13 @@ def fetch_nse_announcements(symbol):
 # BSE FETCHERS
 # ============================================================
 
-def fetch_bse_events(symbol, company=""):
+def fetch_bse_events(symbol_or_scrip, company=""):
     """
     Fetches Board Meetings & Corporate Announcements from BSE India API.
-    Resolves symbol to BSE 6-digit Scrip Code if mapped.
+    Supports numeric scrip codes (e.g. 544937) and text symbols.
     """
     events = []
-    bse_code = BSE_SCRIP_MAP.get(symbol.upper(), symbol)
+    bse_code = str(symbol_or_scrip).strip()
 
     try:
         # 1. BSE Board Meetings
@@ -336,8 +327,8 @@ def fetch_bse_events(symbol, company=""):
                 parsed_time = extract_event_time(purpose)
 
                 events.append({
-                    "symbol": symbol,
-                    "company": company or item.get("COMPNAME") or symbol,
+                    "symbol": symbol_or_scrip,
+                    "company": company or item.get("COMPNAME") or symbol_or_scrip,
                     "event_date": event_date.isoformat(),
                     "event_time": parsed_time,
                     "purpose": purpose,
@@ -395,8 +386,8 @@ def fetch_bse_events(symbol, company=""):
                     continue
 
                 events.append({
-                    "symbol": symbol,
-                    "company": company or item.get("SLONGNAME") or symbol,
+                    "symbol": symbol_or_scrip,
+                    "company": company or item.get("SLONGNAME") or symbol_or_scrip,
                     "event_date": event_date.isoformat(),
                     "event_time": event_time,
                     "purpose": head,
@@ -429,21 +420,32 @@ def collect_all_events():
     print("=" * 70)
 
     for item in watchlist:
-        symbol = item["symbol"]
+        raw_symbol = str(item["symbol"]).strip()
         company = item["company"]
 
-        print(f"Fetching {symbol} ({company})...", end=" ")
+        # Dynamic Routing:
+        # Numeric symbols (e.g. 544937, 544467) -> BSE Scrip Code
+        # Alphabetic symbols (e.g. HDFCBANK, TMPV) -> NSE Ticker
+        is_bse_code = raw_symbol.isdigit() or raw_symbol.upper().startswith("BSE:")
+        clean_code = raw_symbol.split(":")[-1].strip() if ":" in raw_symbol else raw_symbol
 
-        # 1. Fetch from NSE Board Meetings & Announcements
-        nse_events = fetch_nse_board_meetings(symbol)
-        nse_ann_events = fetch_nse_announcements(symbol)
+        print(f"Fetching {raw_symbol} ({company})...", end=" ")
 
-        company_events = nse_events + nse_ann_events
+        company_events = []
 
-        # 2. If symbol is mapped to BSE (like NSE / NSDL) or NSE has no events, query BSE
-        if symbol.upper() in BSE_SCRIP_MAP or not company_events:
-            bse_events = fetch_bse_events(symbol, company)
-            company_events.extend(bse_events)
+        if is_bse_code:
+            # Route to BSE
+            company_events = fetch_bse_events(clean_code, company)
+        else:
+            # Route to NSE (Board Meetings & Announcements)
+            nse_events = fetch_nse_board_meetings(clean_code)
+            nse_ann_events = fetch_nse_announcements(clean_code)
+            company_events = nse_events + nse_ann_events
+
+            # Fallback to BSE if NSE returns no events
+            if not company_events:
+                bse_events = fetch_bse_events(clean_code, company)
+                company_events.extend(bse_events)
 
         print(f"OK - {len(company_events)} events found")
         all_events.extend(company_events)

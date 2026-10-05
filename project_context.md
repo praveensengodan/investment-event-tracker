@@ -39,36 +39,41 @@ Investment Events Google Calendar (Asia/Kolkata)
 
 ### Usable Symbols (28 Companies)
 
-| # | Company | Symbol | Exchange / BSE Scrip |
+| # | Company | Symbol in Sheet | Exchange Routed |
 |---|---|---|---|
-| 1 | NSE | `NSE` | BSE: `544937` |
-| 2 | Gateway Distriparks | `GATEWAY` | NSE / BSE |
-| 3 | KPIT Technologies | `KPITTECH` | NSE / BSE |
-| 4 | CMS Info Systems | `CMSINFO` | NSE / BSE |
-| 5 | Sky Gold & Diamonds | `SKYGOLD` | NSE / BSE |
-| 6 | HDFC Bank | `HDFCBANK` | NSE / BSE |
-| 7 | Cipla | `CIPLA` | NSE / BSE |
-| 8 | ICICI Prudential AMC | `ICICIAMC` | NSE / BSE |
-| 9 | Tata Motors | `TATAMOTORS` | NSE / BSE |
-| 10 | Tata Motors Passenger Vehicles | `TMPV` | NSE / BSE |
-| 11 | LG Electronics India | `LGEINDIA` | NSE / BSE |
-| 12 | Tata Capital | `TATACAP` | NSE / BSE |
-| 13 | Tata Chemicals | `TATACHEM` | NSE / BSE |
-| 14 | Life Insurance Corporation | `LICI` | NSE / BSE |
-| 15 | Brigade Enterprises | `BRIGADE` | NSE / BSE |
-| 16 | Ashok Leyland | `ASHOKLEY` | NSE / BSE |
-| 17 | Tata Power | `TATAPOWER` | NSE / BSE |
-| 18 | Zydus Lifesciences | `ZYDUSLIFE` | NSE / BSE |
-| 19 | Dr. Reddy's Laboratories | `DRREDDY` | NSE / BSE |
-| 20 | NSDL | `NSDL` | BSE: `544467` |
-| 21 | Karnataka Bank | `KTKBANK` | NSE / BSE |
-| 22 | South Indian Bank | `SOUTHBANK` | NSE / BSE |
-| 23 | IDFC FIRST Bank | `IDFCFIRSTB` | NSE / BSE |
-| 24 | HDB Financial Services | `HDBFS` | NSE / BSE |
-| 25 | IndusInd Bank | `INDUSINDBK` | NSE / BSE |
-| 26 | Tamilnad Mercantile Bank | `TMB` | NSE / BSE |
-| 27 | Natco Pharma | `NATCOPHARM` | NSE / BSE |
-| 28 | ITC | `ITC` | NSE / BSE |
+| 1 | NSE | `544937` | BSE (Numeric Code) |
+| 2 | Gateway Distriparks | `GATEWAY` | NSE (Alphabetic Symbol) |
+| 3 | KPIT Technologies | `KPITTECH` | NSE |
+| 4 | CMS Info Systems | `CMSINFO` | NSE |
+| 5 | Sky Gold & Diamonds | `SKYGOLD` | NSE |
+| 6 | HDFC Bank | `HDFCBANK` | NSE |
+| 7 | Cipla | `CIPLA` | NSE |
+| 8 | ICICI Prudential AMC | `ICICIAMC` | NSE |
+| 9 | Tata Motors | `TATAMOTORS` | NSE |
+| 10 | Tata Motors Passenger Vehicles | `TMPV` | NSE |
+| 11 | LG Electronics India | `LGEINDIA` | NSE |
+| 12 | Tata Capital | `TATACAP` | NSE |
+| 13 | Tata Chemicals | `TATACHEM` | NSE |
+| 14 | Life Insurance Corporation | `LICI` | NSE |
+| 15 | Brigade Enterprises | `BRIGADE` | NSE |
+| 16 | Ashok Leyland | `ASHOKLEY` | NSE |
+| 17 | Tata Power | `TATAPOWER` | NSE |
+| 18 | Zydus Lifesciences | `ZYDUSLIFE` | NSE |
+| 19 | Dr. Reddy's Laboratories | `DRREDDY` | NSE |
+| 20 | NSDL | `544467` | BSE (Numeric Code) |
+| 21 | Karnataka Bank | `KTKBANK` | NSE |
+| 22 | South Indian Bank | `SOUTHBANK` | NSE |
+| 23 | IDFC FIRST Bank | `IDFCFIRSTB` | NSE |
+| 24 | HDB Financial Services | `HDBFS` | NSE |
+| 25 | IndusInd Bank | `INDUSINDBK` | NSE |
+| 26 | Tamilnad Mercantile Bank | `TMB` | NSE |
+| 27 | Natco Pharma | `NATCOPHARM` | NSE |
+| 28 | ITC | `ITC` | NSE |
+
+> **Dynamic Exchange Auto-Detection Rule:**
+> - **Numeric Symbol** (e.g. `544937`, `544467`) or `BSE:...` $\rightarrow$ Automatically queries **BSE APIs**.
+> - **Alphabetic Symbol** (e.g. `HDFCBANK`, `TMPV`) $\rightarrow$ Automatically queries **NSE APIs** (with BSE fallback).
+> - **Zero Code Maintenance:** Adding new stocks to the Google Sheet automatically routes to the proper exchange without any code changes.
 
 ---
 
