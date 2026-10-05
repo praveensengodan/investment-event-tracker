@@ -4,9 +4,7 @@ from datetime import datetime, timedelta
 
 
 # ============================================================
-# CONFIGURATION
-# ============================================================
-WATCHLIST_URL = https://script.google.com/macros/s/AKfycbySSc5SudGTpSjnIXbQaoeAsr6mYDXFkR2YPnLvpyVIoQsTbflb1W7Wj_oV1EEq_dqS/exec?type=eventwatchlist
+WATCHLIST_URL = "https://script.google.com/macros/s/AKfycbySSc5SudGTpSjnIXbQaoeAsr6mYDXFkR2YPnLvpyVIoQsTbflb1W7Wj_oV1EEq_dqS/exec?type=eventwatchlist"
 
 DAYS_AHEAD = 90
 
@@ -210,14 +208,14 @@ def collect_nse_events():
     )
 
     print(
-        f"Companies: {len(WATCHLIST)}"
+        f"Companies: {len(watchlist)}"
     )
 
     print("=" * 70)
 
     for item in watchlist:
-    symbol = item["symbol"]
-    company = item["company"]
+        symbol = item["symbol"]
+        company = item["company"]
 
         events = fetch_nse_events(
             symbol
