@@ -37,7 +37,7 @@ Investment Events Google Calendar (Asia/Kolkata)
 - **Total Tracked Companies:** 28 companies (27 active symbols + 1 TBD)
 - **Active Filter:** `doGetEventWatchlist()` returns active rows where symbol is valid (excludes `TBD`).
 
-### Usable Symbols (27 Companies)
+### Usable Symbols (28 Companies)
 
 | # | Company | Symbol |
 |---|---|---|
@@ -50,26 +50,25 @@ Investment Events Google Calendar (Asia/Kolkata)
 | 7 | Cipla | `CIPLA` |
 | 8 | ICICI Prudential AMC | `ICICIAMC` |
 | 9 | Tata Motors | `TATAMOTORS` |
-| 10 | LG Electronics India | `LGEINDIA` |
-| 11 | Tata Capital | `TATACAP` |
-| 12 | Tata Chemicals | `TATACHEM` |
-| 13 | Life Insurance Corporation | `LICI` |
-| 14 | Brigade Enterprises | `BRIGADE` |
-| 15 | Ashok Leyland | `ASHOKLEY` |
-| 16 | Tata Power | `TATAPOWER` |
-| 17 | Zydus Lifesciences | `ZYDUSLIFE` |
-| 18 | Dr. Reddy's Laboratories | `DRREDDY` |
-| 19 | NSDL | `NSDL` |
-| 20 | Karnataka Bank | `KTKBANK` |
-| 21 | South Indian Bank | `SOUTHBANK` |
-| 22 | IDFC FIRST Bank | `IDFCFIRSTB` |
-| 23 | HDB Financial Services | `HDBFS` |
-| 24 | IndusInd Bank | `INDUSINDBK` |
-| 25 | Tamilnad Mercantile Bank | `TMB` |
-| 26 | Natco Pharma | `NATCOPHARM` |
-| 27 | ITC | `ITC` |
-
-*Note: Tata Motors PV symbol is currently `TBD` and is intentionally excluded until officially verified.*
+| 10 | Tata Motors Passenger Vehicles | `TMPV` |
+| 11 | LG Electronics India | `LGEINDIA` |
+| 12 | Tata Capital | `TATACAP` |
+| 13 | Tata Chemicals | `TATACHEM` |
+| 14 | Life Insurance Corporation | `LICI` |
+| 15 | Brigade Enterprises | `BRIGADE` |
+| 16 | Ashok Leyland | `ASHOKLEY` |
+| 17 | Tata Power | `TATAPOWER` |
+| 18 | Zydus Lifesciences | `ZYDUSLIFE` |
+| 19 | Dr. Reddy's Laboratories | `DRREDDY` |
+| 20 | NSDL | `NSDL` |
+| 21 | Karnataka Bank | `KTKBANK` |
+| 22 | South Indian Bank | `SOUTHBANK` |
+| 23 | IDFC FIRST Bank | `IDFCFIRSTB` |
+| 24 | HDB Financial Services | `HDBFS` |
+| 25 | IndusInd Bank | `INDUSINDBK` |
+| 26 | Tamilnad Mercantile Bank | `TMB` |
+| 27 | Natco Pharma | `NATCOPHARM` |
+| 28 | ITC | `ITC` |
 
 ---
 
