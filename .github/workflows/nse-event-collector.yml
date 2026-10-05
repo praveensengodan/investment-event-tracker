@@ -2,10 +2,10 @@ name: NSE Event Collector
 
 on:
   schedule:
-    # 6:00 AM IST (00:30 UTC) - Morning pre-market scan
-    - cron: '30 0 * * *'
-    # 6:30 PM IST (13:00 UTC) - Evening post-market filings scan
-    - cron: '0 13 * * *'
+    # 6:05 AM IST (00:35 UTC) - Morning pre-market scan
+    - cron: '35 0 * * *'
+    # 6:35 PM IST (13:05 UTC) - Evening post-market filings scan
+    - cron: '5 13 * * *'
   workflow_dispatch:
 
 jobs:
