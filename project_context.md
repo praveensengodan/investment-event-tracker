@@ -215,7 +215,8 @@ investment-event-tracker/
 - [ ] End-to-end event update → calendar entry verification
 
 #### Phase E — Automation & Scheduling
-- [ ] Add GitHub Actions daily cron schedule (IST morning / post-market)
+- [x] Add GitHub Actions daily cron schedule (6:00 AM IST & 6:30 PM IST)
+- [x] Retain `workflow_dispatch` for manual on-demand triggers
 - [ ] Error logging, retries, and failure alerts
 
 #### Phase F — Future Enhancements
